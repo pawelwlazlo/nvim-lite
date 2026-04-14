@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a minimal single-file Neovim configuration targeting NeoVim 0.12+. All configuration lives in `init.lua`. The config uses `vim.pack` (built-in) for plugin management, not an external plugin manager.
+This is a modular Neovim configuration targeting NeoVim 0.12+. Entry point is `init.lua` and feature modules live under `lua/` (`core`, `plugins`, `ui`). The config uses `vim.pack` (built-in) for plugin management, not an external plugin manager.
 
 ## Prerequisites
 
@@ -19,30 +19,50 @@ This is a minimal single-file Neovim configuration targeting NeoVim 0.12+. All c
 
 ## Architecture
 
-### Single-File Design
-All configuration is in `init.lua` with these main sections:
-1. **Options** (line 27-110): Editor settings, colorscheme, transparency
-2. **Statusline** (line 112-256): Custom statusline with Nerd Font icons and git branch caching
-3. **Keymaps** (line 258-316): Leader key (`<Space>`), window navigation, LSP bindings
-4. **Autocmds** (line 318-417): Format on save, yank highlighting, cursor position restoration
-5. **Plugin Management** (line 419-440): Plugin declarations using `vim.pack.add()`
-6. **Plugin Configs** (line 457-807): Individual plugin setup including Treesitter, LSP, completion
-7. **Floating Terminal** (line 849-938): Custom floating terminal implementation
+### Modular Design
+- `init.lua`: bootstraps modules in load order
+- `lua/core`: options, keymaps, autocmds, transparency
+- `lua/plugins`: plugin registration and per-plugin configuration
+- `lua/ui`: statusline and other UI modules
+- `lua/languages`: pluggable per-language contributions (LSP/DAP/tests/tasks/keymaps)
 
 ### Plugin System
 Uses `vim.pack.add()` (NeoVim 0.12+ native) instead of external managers:
 - Plugins are declared in `vim.pack.add()` calls
 - Plugin lock file: `nvim-pack-lock.json` (git tracked)
 - Auto-installation on first run
-- Manual installation: Restart neovim after editing `init.lua`
+- Manual installation: restart Neovim after editing plugin declarations
 
 ### LSP & Tooling
 - **LSP**: Uses `vim.lsp.config()` (NeoVim 0.12+ API), not `nvim-lspconfig`'s old setup
+- **Java LSP**: Uses `nvim-jdtls` (`start_or_attach`) with project-scoped workspaces
+- **Language bootstrap tooling**: `lua/core/tooling.lua` checks required Mason packages per language and prompts install mode on first open with missing required tools.
 - **Linting/Formatting**: efm-langserver configured via efmls-configs-nvim
 - **Completion**: blink.cmp (1.x) with LuaSnip for snippets
 - **Fuzzy Finding**: fzf-lua (integrates with fzf/ripgrep/fd)
 
+### Language Tooling Bootstrap Flow
+- Prompt appears when opening a language file whose `required_tools` are missing.
+- Install modes:
+  - `Interactive`: per-tool decisions with short tool descriptions.
+  - `Defaults`: install missing required + optional tools without extra prompts.
+- Cancel keeps editor responsive and reports clear warnings for LSP-dependent actions.
+- After successful install, attach is retried automatically (no Neovim restart required).
+- Operational command: `:ToolingHealth` (status per language + quick interactive/default installs).
+
 ## Key Features
+
+### IDE Workflow Baseline (Phase 1)
+- **Run tasks**: `overseer.nvim` + language providers power JS/TS scripts and Java Gradle/Maven tasks.
+- **Debugging**: `nvim-dap` + `nvim-dap-ui` + `nvim-dap-virtual-text` with language contributions (`nvim-dap-vscode-js`, jdtls DAP).
+- **Testing**: `neotest` adapters are composed by language modules (`neotest-jest`, `neotest-vitest`, `neotest-java`).
+- **Navigation**: `fzf-lua` search-everywhere flow + `aerial.nvim` outline/breadcrumb context.
+- **Refactor/diagnostics UX**: `inc-rename.nvim`, `refactoring.nvim`, and `trouble.nvim` add IDE-style ergonomics.
+
+### Java Support Assumptions
+- JDK 17+ is required for jdtls.
+- Java `required_tools`: `jdtls`, `java-debug-adapter`, `java-test`.
+- Java root detection supports `.git`, `mvnw`, `pom.xml`, `gradlew`, `settings.gradle`, `build.gradle`.
 
 ### Custom Statusline
 - Nerd Font icons for file types and modes
@@ -64,27 +84,39 @@ Only triggers when:
 - Persists buffer content across toggles
 - Terminal starts in `$SHELL`
 
-### Claude Code Integration
-Claude Code is integrated directly into the editor with floating terminal windows:
+### Kilo CLI Integration
+Kilo is integrated directly into the editor with floating terminal windows:
 
 **Keybindings:**
-- `<leader>cc` - Open Claude Code terminal for interactive sessions
-- `<leader>cf` - Send current file to Claude Code (uses `--file` flag)
-- `<leader>cs` - Send visual selection to Claude Code (visual mode only)
+- `<leader>cc` - Open Kilo interactive terminal
+- `<leader>cf` - Run Kilo with current file context
+- `<leader>cs` - Run Kilo with visual selection (visual mode)
 
 **Features:**
-- Uses floating terminal for Claude Code sessions
+- Uses floating terminal for Kilo sessions
 - Auto-closes on buffer leave for seamless workflow
 - Handles partial line selections correctly
-- Escapes shell arguments properly for safe command execution
+- Uses argv-based command execution (`termopen({ ... })`) for safe argument handling
+
+**Optional shell integration:**
+- Set `EDITOR`/`VISUAL` to Neovim so Kilo `/editor` opens in Neovim (for example in shell rc: `export EDITOR=nvim` and `export VISUAL=nvim`)
 
 ### Nerd Font Icons
 The config assumes Nerd Fonts are installed. File type icons are hardcoded in the `file_type()` function.
 
+### Which-Key
+- `which-key.nvim` is configured to match LazyVim-style behavior (`preset = "helix"`).
+- `<leader>?` shows buffer-local keymaps.
+- `<C-w><Space>` opens window hydra mode for window commands.
+
+### Keybindings Cheatsheet
+- Canonical keybindings reference: `KEYBINDINGS.md`.
+- To refresh it after keymap changes, use skill: `.claude/skills/update-keybindings-cheatsheet/SKILL.md`.
+
 ## Development Workflow
 
 ### Testing Changes
-1. Edit `init.lua`
+1. Edit the relevant module in `lua/` (or `init.lua` for bootstrapping changes)
 2. Restart Neovim to reload configuration
 3. For plugin changes: plugins auto-install on restart
 
@@ -109,9 +141,16 @@ Then add corresponding `packadd()` call and configuration.
 - `<leader>e`: Toggle file tree (nvim-tree)
 - `<leader>t`: Toggle floating terminal
 - `<leader>ff/fg/fb/fh`: FZF files/grep/buffers/help
+- `<leader>fe`: FZF search everywhere
+- `<leader>?`: Buffer keymaps (which-key)
+- `<C-w><Space>`: Window hydra mode (which-key)
 - `<leader>pa`: Copy full file path
 - `<leader>td`: Toggle diagnostics
 - `<leader>sv/sh`: Split vertical/horizontal
 - `<C-h/j/k/l>`: Navigate windows
 - LSP: `<leader>gd` (definition), `<leader>fr` (references), `<leader>ca` (code actions), `K` (hover)
-- **Claude Code**: `<leader>cc` (open terminal), `<leader>cf` (with current file), `<leader>cs` (with selection)
+- **Run/Tasks**: `<leader>rr` (script picker), `<leader>rd/rb/rt/rl` (dev/build/test/lint), `<leader>rp` (task list)
+- **Debug**: `<leader>db` (breakpoint), `<leader>dc` (continue), `<leader>du` (debug UI), `<leader>dx` (terminate)
+- **Tests**: `<leader>tn` (nearest), `<leader>tf` (file), `<leader>ta` (project), `<leader>tv` (nearest with DAP)
+- **IDE aliases**: `<leader>jf/jc/js/ju/jr/jm` (go to file/class/symbol/usages, rename, refactor)
+- **Kilo CLI**: `<leader>cc` (open terminal), `<leader>cf` (with current file), `<leader>cs` (with selection)
