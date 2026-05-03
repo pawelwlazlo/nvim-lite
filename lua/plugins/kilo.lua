@@ -8,8 +8,12 @@ local function run_kilo_command(argv)
 		return
 	end
 
-	Snacks.terminal.open(argv, {
-		on_exit = function(exit_code)
+	local term = Snacks.terminal.open(argv, { interactive = false })
+	vim.api.nvim_create_autocmd("TermClose", {
+		buffer = term.buf,
+		once = true,
+		callback = function()
+			local exit_code = vim.v.event.status
 			if exit_code ~= 0 then
 				vim.notify("Kilo command failed with exit code " .. exit_code, vim.log.levels.ERROR)
 			end
