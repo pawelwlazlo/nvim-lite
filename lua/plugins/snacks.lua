@@ -3,6 +3,10 @@
 -- ============================================================================
 
 require("snacks").setup({
+  bigfile = {
+    enabled = true,
+    size = 1.5 * 1024 * 1024,
+  },
   dashboard = {
     enabled = true,
     preset = {
@@ -40,6 +44,13 @@ require("snacks").setup({
       info = " ",
       debug = " ",
       trace = "✎",
+    },
+  },
+  scroll = {
+    enabled = true,
+    animate = {
+      duration = { step = 15, total = 150 },
+      easing = "linear",
     },
   },
   terminal = {
