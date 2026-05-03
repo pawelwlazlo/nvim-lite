@@ -2,98 +2,26 @@
 -- KILO CLI INTEGRATION
 -- ============================================================================
 
-local terminal = require("plugins.terminal")
-local terminal_state = terminal.terminal_state
-
-local function ensure_terminal_buffer()
-	if not terminal_state.buf or not vim.api.nvim_buf_is_valid(terminal_state.buf) then
-		terminal_state.buf = vim.api.nvim_create_buf(false, true)
-		vim.bo[terminal_state.buf].bufhidden = "hide"
-	end
-
-	return terminal_state.buf
-end
-
-local function open_terminal_window()
-	local buf = ensure_terminal_buffer()
-	local width = math.floor(vim.o.columns * 0.8)
-	local height = math.floor(vim.o.lines * 0.8)
-	local row = math.floor((vim.o.lines - height) / 2)
-	local col = math.floor((vim.o.columns - width) / 2)
-
-	terminal_state.win = vim.api.nvim_open_win(buf, true, {
-		relative = "editor",
-		width = width,
-		height = height,
-		row = row,
-		col = col,
-		style = "minimal",
-		border = "rounded",
-	})
-
-	vim.wo[terminal_state.win].winblend = 0
-	vim.wo[terminal_state.win].winhighlight = "Normal:FloatingTermNormal,FloatBorder:FloatingTermBorder"
-	vim.api.nvim_set_hl(0, "FloatingTermNormal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "FloatingTermBorder", { bg = "none" })
-
-	terminal_state.is_open = true
-
-	vim.api.nvim_create_autocmd("BufLeave", {
-		buffer = terminal_state.buf,
-		callback = function()
-			if terminal_state.is_open and terminal_state.win and vim.api.nvim_win_is_valid(terminal_state.win) then
-				vim.api.nvim_win_close(terminal_state.win, false)
-				terminal_state.is_open = false
-			end
-		end,
-		once = true,
-	})
-end
-
-local function clear_terminal_buffer()
-	local lines = vim.api.nvim_buf_get_lines(terminal_state.buf, 0, -1, false)
-	for _, line in ipairs(lines) do
-		if line ~= "" then
-			vim.api.nvim_buf_set_lines(terminal_state.buf, 0, -1, false, {})
-			break
-		end
-	end
-end
-
 local function run_kilo_command(argv)
 	if vim.fn.executable("kilo") ~= 1 then
 		vim.notify("kilo executable not found in PATH", vim.log.levels.ERROR)
 		return
 	end
 
-	if not terminal_state.win or not vim.api.nvim_win_is_valid(terminal_state.win) then
-		vim.notify("Terminal window not valid", vim.log.levels.ERROR)
-		return
-	end
-
-	if not terminal_state.buf or not vim.api.nvim_buf_is_valid(terminal_state.buf) then
-		vim.notify("Terminal buffer not valid", vim.log.levels.ERROR)
-		return
-	end
-
-	vim.api.nvim_win_call(terminal_state.win, function()
-		clear_terminal_buffer()
-
-		vim.fn.termopen(argv, {
-			detached = false,
-			on_exit = function(_, exit_code, _)
-				if exit_code ~= 0 then
-					vim.notify("Kilo command failed with exit code " .. exit_code, vim.log.levels.ERROR)
-				end
-			end,
-		})
-
-		vim.cmd("startinsert")
-	end)
+	local term = Snacks.terminal.open(argv, { interactive = false })
+	vim.api.nvim_create_autocmd("TermClose", {
+		buffer = term.buf,
+		once = true,
+		callback = function()
+			local exit_code = vim.v.event.status
+			if exit_code ~= 0 then
+				vim.notify("Kilo command failed with exit code " .. exit_code, vim.log.levels.ERROR)
+			end
+		end,
+	})
 end
 
 local function kilo_terminal()
-	open_terminal_window()
 	run_kilo_command({ "kilo" })
 end
 
@@ -104,7 +32,6 @@ local function kilo_with_file()
 		return
 	end
 
-	open_terminal_window()
 	run_kilo_command({ "kilo", "run", "--file", file_path, "Review this file and provide actionable recommendations." })
 end
 
@@ -141,7 +68,6 @@ local function kilo_with_selection()
 		return
 	end
 
-	open_terminal_window()
 	run_kilo_command({ "kilo", "run", "Work on this code selection:\n\n" .. selected_text })
 end
 
