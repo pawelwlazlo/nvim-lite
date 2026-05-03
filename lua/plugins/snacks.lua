@@ -28,6 +28,8 @@ require("snacks").setup({
       { section = "startup" },
     },
   },
+  gitbrowse = { enabled = true },
+  lazygit   = { enabled = true },
   notifier = {
     enabled = true,
     style = "fancy",
@@ -87,3 +89,12 @@ Snacks.toggle.option("conceallevel", {
   name = "Conceal",
 }):map("<leader>uc")
 Snacks.toggle.inlay_hints():map("<leader>uh")
+
+-- Git
+vim.keymap.set("n", "<leader>gg", function()
+  Snacks.lazygit()
+end, { desc = "LazyGit" })
+
+vim.keymap.set("n", "<leader>gB", function()
+  Snacks.gitbrowse()
+end, { desc = "Git browse" })
