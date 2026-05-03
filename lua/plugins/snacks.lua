@@ -46,6 +46,7 @@ require("snacks").setup({
       trace = "✎",
     },
   },
+  rename      = { enabled = true },
   scroll = {
     enabled = true,
     animate = {
@@ -53,6 +54,7 @@ require("snacks").setup({
       easing = "linear",
     },
   },
+  statuscolumn = { enabled = true },
   terminal = {
     enabled = true,
     win = {
@@ -78,6 +80,20 @@ require("snacks").setup({
     debounce = 200,
     notify_jump = false,
     notify_end = false,
+  },
+  zen = {
+    enabled = true,
+    win = { width = 120 },
+    toggles = {
+      dim = false,
+      git_signs = true,
+      diagnostics = false,
+      inlay_hints = false,
+    },
+    show = {
+      statusline = false,
+      tabline = false,
+    },
   },
 })
 
@@ -109,3 +125,13 @@ end, { desc = "LazyGit" })
 vim.keymap.set("n", "<leader>gB", function()
   Snacks.gitbrowse()
 end, { desc = "Git browse" })
+
+-- Zen mode
+vim.keymap.set("n", "<leader>z", function()
+  Snacks.zen()
+end, { desc = "Zen mode" })
+
+-- File rename with LSP
+vim.keymap.set("n", "<leader>cR", function()
+  Snacks.rename.rename_file()
+end, { desc = "Rename file" })
