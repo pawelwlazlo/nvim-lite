@@ -85,14 +85,17 @@ packadd("snacks.nvim")
 -- PLUGIN CONFIGS
 -- ============================================================================
 
--- Load plugin configurations in order
+-- Load plugin configurations in order.
+-- mini-plugins must run before nvim-tree/fzf-lua: it registers
+-- MiniIcons.mock_nvim_web_devicons(), which those plugins resolve at init
+-- time via require("nvim-web-devicons"). See NER-116.
 require("plugins.colorscheme")
 require("plugins.treesitter")
 require("plugins.completion")
 require("plugins.lsp")
+require("plugins.mini-plugins")
 require("plugins.nvim-tree")
 require("plugins.fzf-lua")
-require("plugins.mini-plugins")
 require("plugins.gitsigns")
 require("plugins.tasks")
 require("plugins.dap")
