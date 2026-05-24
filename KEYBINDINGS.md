@@ -41,7 +41,6 @@ This document lists the keymaps currently configured in this repository.
 | v | `>` | Indent right and reselect |
 | n | `J` | Join lines and keep cursor position |
 | n | `<leader>pa` | Copy full file path to clipboard |
-| n | `<leader>td` | Toggle diagnostics |
 
 ## File/Search/Navigation (`lua/plugins/fzf-lua.lua`, `lua/plugins/navigation.lua`, `lua/plugins/nvim-tree.lua`)
 
@@ -197,6 +196,24 @@ Registered prefix groups (discoverability labels):
 - `<leader>x` diagnostics/quickfix
 - `[` prev, `]` next, `g` goto, `gs` surround, `z` fold
 - `gx` open with system app
+
+## snacks.nvim (`lua/plugins/snacks.lua`)
+
+| Mode | Key | Action |
+|---|---|---|
+| n | `<leader>t` | Toggle floating terminal |
+| t | `<Esc>` | Close floating terminal |
+| n | `<leader>n` | Notification history |
+| n | `<leader>gg` | LazyGit |
+| n,v | `<leader>gB` | Git browse (open in browser) |
+| n | `<leader>z` | Zen mode toggle |
+| n | `<leader>cR` | Rename file (+ LSP import update) |
+| n | `<leader>ud` | Toggle diagnostics |
+| n | `<leader>ul` | Toggle line numbers |
+| n | `<leader>us` | Toggle spell check |
+| n | `<leader>uw` | Toggle word wrap |
+| n | `<leader>uc` | Toggle conceal level |
+| n | `<leader>uh` | Toggle inlay hints |
 
 ## Completion (`lua/plugins/completion.lua`)
 

@@ -41,6 +41,7 @@ vim.pack.add({
 	"https://github.com/smjonas/inc-rename.nvim",
 	"https://github.com/ThePrimeagen/refactoring.nvim",
 	"https://github.com/folke/trouble.nvim",
+	"https://github.com/folke/snacks.nvim",
 })
 
 local function packadd(name)
@@ -78,23 +79,28 @@ packadd("aerial.nvim")
 packadd("inc-rename.nvim")
 packadd("refactoring.nvim")
 packadd("trouble.nvim")
+packadd("snacks.nvim")
 
 -- ============================================================================
 -- PLUGIN CONFIGS
 -- ============================================================================
 
--- Load plugin configurations in order
+-- Load plugin configurations in order.
+-- mini-plugins must run before nvim-tree/fzf-lua: it registers
+-- MiniIcons.mock_nvim_web_devicons(), which those plugins resolve at init
+-- time via require("nvim-web-devicons"). See NER-116.
 require("plugins.colorscheme")
 require("plugins.treesitter")
 require("plugins.completion")
 require("plugins.lsp")
+require("plugins.mini-plugins")
 require("plugins.nvim-tree")
 require("plugins.fzf-lua")
-require("plugins.mini-plugins")
 require("plugins.gitsigns")
-require("plugins.terminal")
 require("plugins.tasks")
 require("plugins.dap")
 require("plugins.test")
 require("plugins.navigation")
 require("plugins.which-key")
+require("plugins.snacks")
+require("plugins.kilo")

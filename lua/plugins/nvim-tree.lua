@@ -11,6 +11,20 @@ require("nvim-tree").setup({
 	},
 	renderer = {
 		group_empty = true,
+		icons = {
+			glyphs = {
+				folder = {
+					default = "󰉋",
+					open = "󰝰",
+					empty = "󰉖",
+					empty_open = "󰷏",
+					symlink = "󱉆",
+					symlink_open = "󱞊",
+					arrow_closed = "",
+					arrow_open = "",
+				},
+			},
+		},
 	},
 })
 vim.keymap.set("n", "<leader>e", function()
