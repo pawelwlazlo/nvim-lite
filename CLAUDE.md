@@ -84,23 +84,6 @@ Only triggers when:
 - Persists buffer content across toggles
 - Terminal starts in `$SHELL`
 
-### Kilo CLI Integration
-Kilo is integrated directly into the editor with floating terminal windows:
-
-**Keybindings:**
-- `<leader>cc` - Open Kilo interactive terminal
-- `<leader>cf` - Run Kilo with current file context
-- `<leader>cs` - Run Kilo with visual selection (visual mode)
-
-**Features:**
-- Uses floating terminal for Kilo sessions
-- Auto-closes on buffer leave for seamless workflow
-- Handles partial line selections correctly
-- Uses argv-based command execution (`termopen({ ... })`) for safe argument handling
-
-**Optional shell integration:**
-- Set `EDITOR`/`VISUAL` to Neovim so Kilo `/editor` opens in Neovim (for example in shell rc: `export EDITOR=nvim` and `export VISUAL=nvim`)
-
 ### Nerd Font Icons
 The config assumes Nerd Fonts are installed. File type icons are hardcoded in the `file_type()` function.
 
@@ -153,4 +136,3 @@ Then add corresponding `packadd()` call and configuration.
 - **Debug**: `<leader>db` (breakpoint), `<leader>dc` (continue), `<leader>du` (debug UI), `<leader>dx` (terminate)
 - **Tests**: `<leader>tn` (nearest), `<leader>tf` (file), `<leader>ta` (project), `<leader>tv` (nearest with DAP)
 - **IDE aliases**: `<leader>jf/jc/js/ju/jr/jm` (go to file/class/symbol/usages, rename, refactor)
-- **Kilo CLI**: `<leader>cc` (open terminal), `<leader>cf` (with current file), `<leader>cs` (with selection)

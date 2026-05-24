@@ -122,15 +122,12 @@ This document lists the keymaps currently configured in this repository.
 | n | `<leader>hD` | Close file diff |
 | n | `<leader>ht` | Toggle file diff |
 
-## Terminal and Kilo (`lua/plugins/terminal.lua`, `lua/plugins/kilo.lua`)
+## Terminal (`lua/plugins/terminal.lua`)
 
 | Mode | Key | Action |
 |---|---|---|
 | n | `<leader>t` | Toggle floating terminal |
 | t | `<Esc>` | Close floating terminal |
-| n | `<leader>cc` | Open Kilo terminal |
-| n | `<leader>cf` | Run Kilo with current file |
-| v | `<leader>cs` | Run Kilo with selection |
 
 ## LSP and Diagnostics (`lua/plugins/lsp/handlers.lua`, `lua/plugins/navigation.lua`)
 
