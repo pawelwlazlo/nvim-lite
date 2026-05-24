@@ -42,6 +42,8 @@ vim.pack.add({
 	"https://github.com/ThePrimeagen/refactoring.nvim",
 	"https://github.com/folke/trouble.nvim",
 	"https://github.com/folke/snacks.nvim",
+	-- AI / agent integration (Claude Code via ACP)
+	"https://github.com/carlos-algms/agentic.nvim",
 })
 
 local function packadd(name)
@@ -80,6 +82,8 @@ packadd("inc-rename.nvim")
 packadd("refactoring.nvim")
 packadd("trouble.nvim")
 packadd("snacks.nvim")
+-- AI / agent integration
+packadd("agentic.nvim")
 
 -- ============================================================================
 -- PLUGIN CONFIGS
@@ -103,3 +107,4 @@ require("plugins.test")
 require("plugins.navigation")
 require("plugins.which-key")
 require("plugins.snacks")
+require("plugins.agentic")

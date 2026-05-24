@@ -9,6 +9,7 @@ which_key.setup({
 	defaults = {},
 	spec = {
 		{ "<leader><tab>", group = "tabs", mode = { "n", "x" } },
+		{ "<leader>a", group = "ai/agentic", mode = { "n", "x" } },
 		{ "<leader>c", group = "code", mode = { "n", "x" } },
 		{ "<leader>d", group = "debug", mode = { "n", "x" } },
 		{ "<leader>dp", group = "profiler", mode = { "n", "x" } },

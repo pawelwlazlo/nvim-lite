@@ -128,6 +128,29 @@ This document lists the keymaps currently configured in this repository.
 | n | `<leader>t` | Toggle floating terminal |
 | t | `<Esc>` | Close floating terminal |
 
+## AI / Agentic (`lua/plugins/agentic.lua`)
+
+Claude Code (and other ACP agents) via [agentic.nvim](https://github.com/carlos-algms/agentic.nvim).
+Requires the `claude-agent-acp` bridge on `PATH` (`npm i -g @agentclientprotocol/claude-agent-acp`).
+
+| Mode | Key | Action |
+|---|---|---|
+| n | `<leader>ac` | Toggle chat sidebar |
+| n | `<leader>ao` | Open chat sidebar |
+| n | `<leader>aq` | Close chat sidebar |
+| n | `<leader>an` | New session |
+| n | `<leader>aN` | New session (pick provider) |
+| n | `<leader>ar` | Restore previous session |
+| n | `<leader>aS` | Switch ACP provider (keep history) |
+| n | `<leader>ax` | Stop current generation |
+| n | `<leader>al` | Rotate window layout |
+| n | `<leader>af` | Add current file to context |
+| n | `<leader>ad` | Add current line diagnostics to context |
+| n | `<leader>aD` | Add buffer diagnostics to context |
+| v,x | `<leader>as` | Add visual selection to context |
+
+Agentic buffers also expose plugin-local maps (`<S-Tab>` switch mode, `<CR>`/`<C-s>` submit, `<localleader>p` paste image, `<localleader>s` switch provider, `<localleader>m` switch model, `q` close, `]]`/`[[` jump sections).
+
 ## LSP and Diagnostics (`lua/plugins/lsp/handlers.lua`, `lua/plugins/navigation.lua`)
 
 Language-specific LSP keymaps are contributed through `lua/languages/*` modules.
@@ -178,6 +201,7 @@ Language-specific LSP keymaps are contributed through `lua/languages/*` modules.
 Registered prefix groups (discoverability labels):
 
 - `<leader><Tab>` tabs
+- `<leader>a` ai/agentic
 - `<leader>b` buffer
 - `<leader>c` code
 - `<leader>d` debug
