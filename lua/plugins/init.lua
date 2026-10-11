@@ -42,6 +42,7 @@ vim.pack.add({
 	"https://github.com/ThePrimeagen/refactoring.nvim",
 	"https://github.com/folke/trouble.nvim",
 	"https://github.com/folke/snacks.nvim",
+	"https://github.com/coder/claudecode.nvim",
 })
 
 local function packadd(name)
@@ -80,6 +81,7 @@ packadd("inc-rename.nvim")
 packadd("refactoring.nvim")
 packadd("trouble.nvim")
 packadd("snacks.nvim")
+packadd("claudecode.nvim")
 
 -- ============================================================================
 -- PLUGIN CONFIGS
@@ -103,3 +105,4 @@ require("plugins.test")
 require("plugins.navigation")
 require("plugins.which-key")
 require("plugins.snacks")
+require("plugins.claudecode")

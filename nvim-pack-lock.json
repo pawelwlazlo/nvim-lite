@@ -13,6 +13,10 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
+    "claudecode.nvim": {
+      "rev": "2390c6e45c4789072c293ac69de051d169668b29",
+      "src": "https://github.com/coder/claudecode.nvim"
+    },
     "efmls-configs-nvim": {
       "rev": "2dd907fe0043b95a901a9aee814f17804aa4426d",
       "src": "https://github.com/creativenull/efmls-configs-nvim"
