@@ -121,15 +121,20 @@ This document lists the keymaps currently configured in this repository.
 | n | `<leader>hD` | Close file diff |
 | n | `<leader>ht` | Toggle file diff |
 
-## Terminal and Kilo (`lua/plugins/terminal.lua`, `lua/plugins/kilo.lua`)
+## Claude Code (`lua/plugins/claudecode.lua`)
 
 | Mode | Key | Action |
 |---|---|---|
-| n | `<leader>t` | Toggle floating terminal |
-| t | `<Esc>` | Close floating terminal |
-| n | `<leader>cc` | Open Kilo terminal |
-| n | `<leader>cf` | Run Kilo with current file |
-| v | `<leader>cs` | Run Kilo with selection |
+| n | `<leader>ac` | Toggle Claude Code sidebar |
+| n | `<leader>af` | Focus Claude Code sidebar |
+| n | `<leader>ar` | Resume Claude session (picker) |
+| n | `<leader>aC` | Continue last Claude session |
+| n | `<leader>am` | Select Claude model |
+| n | `<leader>ab` | Add current buffer to Claude context |
+| v | `<leader>as` | Send selection to Claude |
+| n (NvimTree buffer) | `<leader>as` | Add file under cursor to Claude context |
+| n | `<leader>aa` | Accept Claude diff |
+| n | `<leader>ad` | Deny Claude diff |
 
 ## LSP and Diagnostics (`lua/plugins/lsp/handlers.lua`, `lua/plugins/navigation.lua`)
 
@@ -181,6 +186,7 @@ Language-specific LSP keymaps are contributed through `lua/languages/*` modules.
 Registered prefix groups (discoverability labels):
 
 - `<leader><Tab>` tabs
+- `<leader>a` ai/claude
 - `<leader>b` buffer
 - `<leader>c` code
 - `<leader>d` debug
