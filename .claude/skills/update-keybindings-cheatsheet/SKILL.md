@@ -54,7 +54,7 @@ Primary files to review:
 - `lua/plugins/nvim-tree.lua`
 - `lua/plugins/gitsigns.lua`
 - `lua/plugins/terminal.lua`
-- `lua/plugins/kilo.lua`
+- `lua/plugins/claudecode.lua`
 - `lua/plugins/lsp/handlers.lua`
 - `lua/plugins/completion.lua`
 
