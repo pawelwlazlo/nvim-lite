@@ -5,6 +5,9 @@ require("claudecode").setup({
 		provider = "snacks",
 		split_side = "right",
 		split_width_percentage = 0.35,
+		snacks_win_opts = {
+			keys = { term_normal = false },
+		},
 	},
 })
 
