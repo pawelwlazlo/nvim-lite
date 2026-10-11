@@ -6,7 +6,18 @@ require("claudecode").setup({
 		split_side = "right",
 		split_width_percentage = 0.35,
 		snacks_win_opts = {
-			keys = { term_normal = false },
+			keys = {
+				term_normal = false,
+				window_command = {
+					"<C-w>",
+					function()
+						local keys = vim.api.nvim_replace_termcodes("<C-\\><C-n><C-w>", true, false, true)
+						vim.api.nvim_feedkeys(keys, "n", false)
+					end,
+					mode = "t",
+					desc = "Window command",
+				},
+			},
 		},
 	},
 })

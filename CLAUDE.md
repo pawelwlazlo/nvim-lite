@@ -93,6 +93,7 @@ Claude Code is integrated through `coder/claudecode.nvim` (`lua/plugins/claudeco
 - `<leader>am` - Select model
 - `<leader>ab` - Add current buffer as context, `<leader>as` (visual) - Send selection, `<leader>as` (nvim-tree) - Add file under cursor
 - `<leader>aa` / `<leader>ad` - Accept / deny proposed diff
+- In the pane: `Esc` goes to Claude, `<C-w>h`/`<C-w>w` work from terminal mode, `q` in normal mode hides it
 
 **Requirements:**
 - `claude` CLI on PATH (`npm i -g @anthropic-ai/claude-code`); the plugin reuses the CLI login, no API key in the config

@@ -28,8 +28,12 @@ native diffs you accept or reject inside the editor.
 | n | `<leader>aa` | Accept proposed diff |
 | n | `<leader>ad` | Deny proposed diff |
 
-Inside the sidebar the terminal behaves like any snacks terminal: `<Esc>`
-leaves terminal mode and hides it, `<leader>ac` brings it back.
+Inside the sidebar `Esc` belongs to Claude (interrupt, dismiss), so the
+usual `Esc`-to-hide of the floating terminal is switched off there. Leave the
+pane with the normal window commands straight from terminal mode: `<C-w>h`
+moves to the editor, `<C-w>w` cycles windows. `<C-\><C-n>` drops to normal
+mode, where `q` hides the pane; `<leader>ac` or `<leader>af` brings it back.
+The price is Ctrl-W as "delete word" in the Claude prompt.
 
 ## Example: fix a bug in the file you are editing
 

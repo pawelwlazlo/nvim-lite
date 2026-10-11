@@ -135,6 +135,8 @@ This document lists the keymaps currently configured in this repository.
 | n (NvimTree buffer) | `<leader>as` | Add file under cursor to Claude context |
 | n | `<leader>aa` | Accept Claude diff |
 | n | `<leader>ad` | Deny Claude diff |
+| t (Claude pane) | `<C-w>` | Window command prefix (e.g. `<C-w>h` to the editor), Esc stays with Claude |
+| n (Claude pane) | `q` | Hide Claude pane |
 
 ## LSP and Diagnostics (`lua/plugins/lsp/handlers.lua`, `lua/plugins/navigation.lua`)
 
