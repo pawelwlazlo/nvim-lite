@@ -9,6 +9,37 @@ require("nvim-tree").setup({
 	filters = {
 		dotfiles = false,
 	},
+	actions = {
+		open_file = {
+			window_picker = {
+				exclude = {
+					buftype = { "terminal", "help", "quickfix", "prompt" },
+					filetype = {
+						"notify",
+						"qf",
+						"diff",
+						"fugitive",
+						"fugitiveblame",
+						"dapui_scopes",
+						"dapui_breakpoints",
+						"dapui_stacks",
+						"dapui_watches",
+						"dapui_console",
+						"dapui_hover",
+						"dap-repl",
+						"neotest-summary",
+						"neotest-output-panel",
+						"aerial",
+						"aerial-nav",
+						"trouble",
+						"OverseerList",
+						"OverseerOutput",
+						"OverseerForm",
+					},
+				},
+			},
+		},
+	},
 	renderer = {
 		group_empty = true,
 		icons = {
