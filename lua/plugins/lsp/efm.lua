@@ -2,7 +2,7 @@
 -- EFM LANGSERVER CONFIGURATION
 -- ============================================================================
 
-do
+local function efm_languages()
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
 
@@ -23,47 +23,50 @@ do
 	local go_revive = require("efmls-configs.linters.go_revive")
 	local gofumpt = require("efmls-configs.formatters.gofumpt")
 
-	vim.lsp.config("efm", {
-		filetypes = {
-			"c",
-			"cpp",
-			"css",
-			"go",
-			"html",
-			"javascript",
-			"javascriptreact",
-			"json",
-			"jsonc",
-			"lua",
-			"markdown",
-			"python",
-			"sh",
-			"typescript",
-			"typescriptreact",
-			"vue",
-			"svelte",
-		},
-		init_options = { documentFormatting = true },
-		settings = {
-			languages = {
-				c = { clangfmt, cpplint },
-				go = { gofumpt, go_revive },
-				cpp = { clangfmt, cpplint },
-				css = { prettier_d },
-				html = { prettier_d },
-				javascript = { eslint_d, prettier_d },
-				javascriptreact = { eslint_d, prettier_d },
-				json = { eslint_d, fixjson },
-				jsonc = { eslint_d, fixjson },
-				lua = { luacheck, stylua },
-				markdown = { prettier_d },
-				python = { flake8, black },
-				sh = { shellcheck, shfmt },
-				typescript = { eslint_d, prettier_d },
-				typescriptreact = { eslint_d, prettier_d },
-				vue = { eslint_d, prettier_d },
-				svelte = { eslint_d, prettier_d },
-			},
-		},
-	})
+	return {
+		c = { clangfmt, cpplint },
+		go = { gofumpt, go_revive },
+		cpp = { clangfmt, cpplint },
+		css = { prettier_d },
+		html = { prettier_d },
+		javascript = { eslint_d, prettier_d },
+		javascriptreact = { eslint_d, prettier_d },
+		json = { eslint_d, fixjson },
+		jsonc = { eslint_d, fixjson },
+		lua = { luacheck, stylua },
+		markdown = { prettier_d },
+		python = { flake8, black },
+		sh = { shellcheck, shfmt },
+		typescript = { eslint_d, prettier_d },
+		typescriptreact = { eslint_d, prettier_d },
+		vue = { eslint_d, prettier_d },
+		svelte = { eslint_d, prettier_d },
+	}
 end
+
+vim.lsp.config("efm", {
+	filetypes = {
+		"c",
+		"cpp",
+		"css",
+		"go",
+		"html",
+		"javascript",
+		"javascriptreact",
+		"json",
+		"jsonc",
+		"lua",
+		"markdown",
+		"python",
+		"sh",
+		"typescript",
+		"typescriptreact",
+		"vue",
+		"svelte",
+	},
+	init_options = { documentFormatting = true },
+	settings = { languages = {} },
+	before_init = function(_, config)
+		config.settings.languages = efm_languages()
+	end,
+})
