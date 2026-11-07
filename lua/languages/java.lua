@@ -363,7 +363,7 @@ M.keymaps = {
 				jdtls_client.test_class()
 				return
 			end
-			require("neotest").run.run(vim.fn.expand("%"))
+			require("plugins.test").neotest().run.run(vim.fn.expand("%"))
 		end, vim.tbl_extend("force", opts, { desc = "Test Java class" }))
 	end,
 }
