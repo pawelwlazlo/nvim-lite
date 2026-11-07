@@ -8,7 +8,8 @@ local last_check = 0
 local function git_branch()
 	local now = vim.loop.now()
 	if now - last_check > 5000 then -- Check every 5 seconds
-		cached_branch = vim.fn.system("git branch --show-current 2>/dev/null | tr -d '\n'")
+		local result = vim.system({ "git", "branch", "--show-current" }, { text = true }):wait()
+		cached_branch = result.code == 0 and vim.trim(result.stdout) or ""
 		last_check = now
 	end
 	if cached_branch ~= "" then
