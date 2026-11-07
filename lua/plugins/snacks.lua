@@ -29,7 +29,6 @@ require("snacks").setup({
       { section = "header" },
       { section = "keys",         gap = 1, padding = 1 },
       { section = "recent_files", limit = 8, padding = 1 },
-      { section = "startup" },
     },
   },
   gitbrowse = { enabled = true },
