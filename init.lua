@@ -8,6 +8,8 @@ if vim.fn.has("nvim-0.12") ~= 1 then
   return
 end
 
+vim.loader.enable()
+
 -- Load order is critical!
 require("core.transparency")        -- 1. UI transparency (no dependencies)
 require("core.options")             -- 2. Editor options (no dependencies)
