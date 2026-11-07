@@ -17,6 +17,10 @@
       "rev": "2390c6e45c4789072c293ac69de051d169668b29",
       "src": "https://github.com/coder/claudecode.nvim"
     },
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
     "efmls-configs-nvim": {
       "rev": "2dd907fe0043b95a901a9aee814f17804aa4426d",
       "src": "https://github.com/creativenull/efmls-configs-nvim"
@@ -44,6 +48,10 @@
     "mini.nvim": {
       "rev": "dbb073bd2ed4a7bb35daafc7989567f0ff1426ee",
       "src": "https://www.github.com/echasnovski/mini.nvim"
+    },
+    "neogit": {
+      "rev": "ba2f33b64b996ff5530c4c45a3c432fb63aaa95b",
+      "src": "https://github.com/NeogitOrg/neogit"
     },
     "neotest": {
       "rev": "b059824dc3c9422ccf6cfdbd7349df9f65389d39",
