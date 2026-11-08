@@ -125,8 +125,10 @@ This document lists the keymaps currently configured in this repository.
 
 | Mode | Key | Action |
 |---|---|---|
-| n | `<leader>gc` | Open Neogit status (stage files/hunks, `c c` to commit, `d` on a file opens Diffview) |
+| n | `<leader>gc` | Open Neogit status (stage files/hunks, `c c` to commit, `d d` on a file opens Diffview) |
 | n | `<leader>gv` | Open Diffview: changed files on the left, side-by-side diff on the right |
+
+Keymaps inside Diffview and Neogit (diff navigation, merge conflicts, staging): `NAVIGATE_DIFFS.md`.
 
 ## Claude Code (`lua/plugins/claudecode.lua`)
 
