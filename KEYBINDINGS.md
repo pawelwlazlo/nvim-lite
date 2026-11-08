@@ -121,6 +121,13 @@ This document lists the keymaps currently configured in this repository.
 | n | `<leader>hD` | Close file diff |
 | n | `<leader>ht` | Toggle file diff |
 
+## Commit window (`lua/plugins/neogit.lua`, `lua/plugins/diffview.lua`)
+
+| Mode | Key | Action |
+|---|---|---|
+| n | `<leader>gc` | Open Neogit status (stage files/hunks, `c c` to commit, `d` on a file opens Diffview) |
+| n | `<leader>gv` | Open Diffview: changed files on the left, side-by-side diff on the right |
+
 ## Claude Code (`lua/plugins/claudecode.lua`)
 
 | Mode | Key | Action |

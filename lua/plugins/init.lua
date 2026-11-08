@@ -43,6 +43,8 @@ vim.pack.add({
 	"https://github.com/folke/trouble.nvim",
 	"https://github.com/folke/snacks.nvim",
 	"https://github.com/coder/claudecode.nvim",
+	"https://github.com/sindrets/diffview.nvim",
+	"https://github.com/NeogitOrg/neogit",
 })
 
 local function packadd(name)
@@ -82,6 +84,8 @@ packadd("refactoring.nvim")
 packadd("trouble.nvim")
 packadd("snacks.nvim")
 packadd("claudecode.nvim")
+packadd("diffview.nvim")
+packadd("neogit")
 
 -- ============================================================================
 -- PLUGIN CONFIGS
@@ -106,3 +110,5 @@ require("plugins.navigation")
 require("plugins.which-key")
 require("plugins.snacks")
 require("plugins.claudecode")
+require("plugins.diffview")
+require("plugins.neogit")

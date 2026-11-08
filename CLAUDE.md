@@ -154,3 +154,4 @@ Then add corresponding `packadd()` call and configuration.
 - **Tests**: `<leader>tn` (nearest), `<leader>tf` (file), `<leader>ta` (project), `<leader>tv` (nearest with DAP)
 - **IDE aliases**: `<leader>jf/jc/js/ju/jr/jm` (go to file/class/symbol/usages, rename, refactor)
 - **Claude Code**: `<leader>ac` (toggle sidebar), `<leader>ab` (add buffer), `<leader>as` (send selection), `<leader>aa/ad` (accept/deny diff)
+- **Git commit window**: `<leader>gc` (Neogit status: stage + commit), `<leader>gv` (Diffview: file list + side-by-side diff)
